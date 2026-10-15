@@ -44,6 +44,11 @@ print(df2)
 df["wiek"] = [27, 31, 45, 36, 19, 23, 52, 40, 29, 42]
 print(df)
 
-srednia = sum(df["wiek"]) / len(df["wiek"])
+srednia = df["wiek"].mean()
+print(f"Średni wiek to: {srednia}")
 
-print(df[df["wiek"] > srednia & df["bmi"] > 25])
+filtrowane_df = df[(df["wiek"] > srednia) & (df["bmi"] > 25)]
+
+wynik = filtrowane_df[["name", "wiek", "bmi"]]
+print("\nOsoby starsze niż średnia z BMI > 25:")
+print(wynik)
