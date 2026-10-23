@@ -5,7 +5,7 @@ def create_menu_option(
     canvas: tk.Canvas,
     height: int,
     text: str,
-    operation: Callable
+    *operations: Callable
 ):
     text_id = canvas.create_text(
         180,
@@ -18,7 +18,7 @@ def create_menu_option(
     canvas.tag_bind(
         text_id,
         "<Button-1>",
-        lambda event: operation()
+        lambda event: [operation() for operation in operations]
     )
 
     canvas.tag_bind(
