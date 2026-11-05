@@ -28,22 +28,30 @@ def simple_operations():
         "centroid"
     ).pack()
 
-    tk.Label(window, text="Threshold:").pack()
-    tk.Entry(window, textvariable=threshold).pack()
+    threshold_frame = tk.Frame(window)
+    tk.Label(threshold_frame, text="Threshold:").pack()
+    tk.Entry(threshold_frame, textvariable=threshold).pack()
+
+    def update_threshold_visibility(*_):
+        if operation.get() in ("buffer", "simplify"):
+            threshold_frame.pack()
+        else:
+            threshold_frame.pack_forget()
+
+    operation.trace_add("write", update_threshold_visibility)
+    update_threshold_visibility()
 
     def execute():
-        value = float(threshold.get())
-
         result = layer.copy()
         
         if operation.get() == "buffer":
-            result["geometry"] = layer.geometry.buffer(value)
+            result["geometry"] = layer.geometry.buffer(float(threshold.get()))
 
         elif operation.get() == "convex hull":
             result["geometry"] = layer.geometry.convex_hull
 
         elif operation.get() == "simplify":
-            result["geometry"] = layer.geometry.simplify(value)
+            result["geometry"] = layer.geometry.simplify(float(threshold.get()))
 
         elif operation.get() == "centroid":
             result["geometry"] = layer.geometry.centroid

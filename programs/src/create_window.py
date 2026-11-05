@@ -45,7 +45,7 @@ def create_window():
 
     canvas.create_text(
         180,
-        420,
+        250,
         text="Wybierz operację:",
         font=("Arial", 16, "bold"),
         fill="white"

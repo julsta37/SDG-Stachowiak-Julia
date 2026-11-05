@@ -26,7 +26,7 @@ def create_menu_option(
         "<Enter>",
         lambda event: canvas.itemconfig(
             text_id,
-            fill="#90E0EF"
+            fill="#1155D2"
         )
     )
 
