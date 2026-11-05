@@ -12,7 +12,7 @@ def simple_operations():
 
     window = tk.Toplevel()
     window.title("Proste operacje")
-    window.geometry("400x300")
+    window.geometry("400x350")
 
     operation = tk.StringVar(value="buffer")
     threshold = tk.StringVar()
@@ -31,9 +31,33 @@ def simple_operations():
     threshold_frame = tk.Frame(window)
     tk.Label(threshold_frame, text="Threshold:").pack()
     tk.Entry(threshold_frame, textvariable=threshold).pack()
+    threshold_description = tk.Label(
+        threshold_frame,
+        wraplength=360,
+        justify="left"
+    )
+    threshold_description.pack(pady=5)
 
     def update_threshold_visibility(*_):
-        if operation.get() in ("buffer", "simplify"):
+        selected_operation = operation.get()
+
+        if selected_operation in ("buffer", "simplify"):
+            if selected_operation == "buffer":
+                threshold_description.config(
+                    text=(
+                        "Buffer: odległość, o jaką geometria zostanie "
+                        "powiększona lub pomniejszona, wyrażona w jednostkach "
+                        "układu współrzędnych."
+                    )
+                )
+            else:
+                threshold_description.config(
+                    text=(
+                        "Simplify: tolerancja upraszczania geometrii. "
+                        "Większa wartość może usunąć więcej szczegółów. "
+                        "Wartość jest wyrażona w jednostkach układu współrzędnych."
+                    )
+                )
             threshold_frame.pack()
         else:
             threshold_frame.pack_forget()
