@@ -28,11 +28,12 @@ print(df)
 
 path = os.path.join("zad2.json")
 df.to_json(path)
-print("zadanie 2")
 
 json = pd.read_json(path)
 df2 = pd.DataFrame(json)
 print(df2)
+
+print(df.equals(df2))
 
 
 
